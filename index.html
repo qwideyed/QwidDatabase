@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StreamVault — Universal Media Transcoder & Downloader</title>
+  <title>StreamRip Studio — Static Media Transcoder & Downloader</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -20,31 +22,26 @@
           },
           colors: {
             brand: {
-              50: '#f0f5ff',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              glow: '#38bdf8',
-            },
-            surface: {
-              dark: '#090d16',
-              card: 'rgba(15, 23, 42, 0.65)',
+              cyan: '#06b6d4',
+              violet: '#8b5cf6',
+              dark: '#0b0f19',
+              darker: '#060911',
+              card: 'rgba(17, 24, 39, 0.72)',
               border: 'rgba(255, 255, 255, 0.08)',
-              hover: 'rgba(255, 255, 255, 0.04)',
             }
           },
           animation: {
-            'pulse-subtle': 'pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'shimmer': 'shimmer 2.2s infinite linear',
+            'shimmer': 'shimmer 2s infinite linear',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
           },
           keyframes: {
-            pulseSubtle: {
-              '0%, 100%': { opacity: '0.9', transform: 'scale(1)' },
-              '50%': { opacity: '1', transform: 'scale(1.015)' },
-            },
             shimmer: {
               '0%': { backgroundPosition: '-200% 0' },
               '100%': { backgroundPosition: '200% 0' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '0.9', transform: 'scale(1)' },
+              '50%': { opacity: '1', transform: 'scale(1.015)' },
             }
           }
         }
@@ -54,129 +51,142 @@
 
   <style>
     body {
-      background-color: #070a12;
-      color: #e2e8f0;
+      background-color: #080c16;
+      color: #f1f5f9;
       background-image: 
-        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
-        radial-gradient(at 100% 20%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
-        radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 60%);
+        radial-gradient(at 10% 10%, rgba(6, 182, 212, 0.12) 0px, transparent 45%),
+        radial-gradient(at 90% 15%, rgba(139, 92, 246, 0.14) 0px, transparent 50%),
+        radial-gradient(at 50% 95%, rgba(14, 165, 233, 0.08) 0px, transparent 60%);
       background-attachment: fixed;
     }
-    
-    .glass-panel {
-      background: rgba(13, 20, 36, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.68);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
     }
 
     .glass-input {
-      background: rgba(8, 14, 27, 0.7);
-      backdrop-filter: blur(8px);
+      background: rgba(10, 15, 29, 0.8);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .glass-input:focus-within {
-      border-color: rgba(56, 189, 248, 0.5);
-      box-shadow: 0 0 20px -3px rgba(56, 189, 248, 0.25);
+      border-color: rgba(6, 182, 212, 0.6);
+      box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.3);
     }
 
-    .shimmer-active {
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+    .shimmer-bar {
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
       background-size: 200% 100%;
       animation: shimmer 1.8s infinite;
     }
 
-    /* Custom subtle scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(10, 15, 30, 0.5);
+      background: rgba(11, 15, 25, 0.6);
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.16);
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.28);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+<body class="min-h-screen flex flex-col font-sans selection:bg-cyan-500 selection:text-white antialiased">
 
-  <header class="w-full border-b border-white/10 glass-panel sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+  <header class="w-full border-b border-white/10 glass-card sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/20 ring-1 ring-white/20">
+        <div class="h-10 w-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-500 to-violet-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 ring-1 ring-white/20">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
         </div>
         <div>
-          <span class="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-            StreamVault
-            <span class="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">PRO</span>
-          </span>
-          <p class="text-[11px] text-slate-400 -mt-0.5 font-medium hidden sm:block">Universal Stream Transcoding & Media Downloader</p>
+          <div class="flex items-center gap-2">
+            <span class="text-base sm:text-lg font-bold tracking-tight text-white">StreamRip</span>
+            <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/25">
+              GitHub Pages Edition
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 -mt-0.5 hidden sm:block">Universal Client Media Extractor & Format Switcher</p>
         </div>
       </div>
 
+      <!-- Action buttons -->
       <div class="flex items-center space-x-2.5">
-        <button id="openArchModalBtn" class="flex items-center gap-2 text-xs font-medium px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors">
-          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span class="hidden sm:inline">How It Works</span>
+        <button id="openBridgeModalBtn" class="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-violet-500/10 hover:bg-violet-500/20 text-violet-300 border border-violet-500/25 transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span class="hidden sm:inline">Backend Bridge API</span>
+          <span class="sm:hidden">API</span>
         </button>
-        <span class="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-          Engine Online
-        </span>
+
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors">
+          <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span class="hidden sm:inline">Repo</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 md:py-12 space-y-10">
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
 
-    <!-- Hero Title & Descriptor -->
-    <section class="text-center space-y-3.5 max-w-2xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 border border-blue-500/25 text-blue-400">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
-        Direct Stream Demuxing & FFmpeg Remuxer
+    <!-- Hero Title -->
+    <div class="text-center space-y-3 max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 text-cyan-300">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+        Ready for GitHub Pages & Static Hosting
       </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-        Fetch, Convert & Save <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">High-Definition Media</span>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        Universal Video & Audio <br class="hidden sm:block">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-violet-400">Stream Downloader</span>
       </h1>
-      <p class="text-sm sm:text-base text-slate-400 leading-relaxed">
-        Extract direct MP4, WEBM, and MP3 audio streams from supported media servers without quality loss or unwanted watermarks.
+      <p class="text-sm sm:text-base text-slate-400">
+        Paste a media link below. Inspect stream metadata and download directly in <b class="text-slate-200">MP4 video</b>, <b class="text-slate-200">MP3 audio</b>, or custom web bitrates.
       </p>
-    </section>
+    </div>
 
-    <section class="glass-panel rounded-3xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
-      <!-- Glow effect backdrop -->
-      <div class="absolute -top-24 -left-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- URL Input and Action Hub -->
+    <section class="glass-card rounded-3xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
+      <!-- Ambient light backdrop -->
+      <div class="absolute -top-20 -left-20 w-64 h-64 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-violet-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="space-y-4 relative z-10">
-        <div class="flex flex-col md:flex-row gap-3">
-          <!-- Main URL Input Bar with Paste Button -->
+      <div class="relative z-10 space-y-4">
+        <div class="flex flex-col sm:flex-row gap-3">
           <div class="glass-input rounded-2xl flex-1 flex items-center px-4 py-3 group transition-all duration-200">
-            <svg class="w-5 h-5 text-slate-500 group-focus-within:text-cyan-400 mr-3 flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-slate-400 group-focus-within:text-cyan-400 mr-3 flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
             </svg>
             <input 
-              id="videoUrlInput"
+              id="mediaUrlInput"
               type="url"
-              placeholder="Paste media link (e.g., https://...)" 
+              placeholder="Paste media link (e.g., https://...mp4, video link, or stream)" 
               class="w-full bg-transparent text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none font-mono"
               autocomplete="off"
             >
+            <!-- Clear Button -->
             <button 
-              id="pasteBtn"
+              id="clearUrlBtn"
               type="button" 
-              class="ml-2 text-xs font-semibold px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/15 text-slate-300 transition-colors flex items-center gap-1.5 flex-shrink-0"
+              class="hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors mr-1"
+              title="Clear input"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <!-- Paste Button -->
+            <button 
+              id="pasteUrlBtn"
+              type="button" 
+              class="text-xs font-semibold px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-slate-200 border border-white/10 transition-all flex items-center gap-1.5 flex-shrink-0"
               title="Paste from clipboard"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -184,135 +194,270 @@
             </button>
           </div>
 
-          <!-- Format Dropdown -->
-          <div class="relative min-w-[170px]">
-            <select id="formatSelector" class="w-full h-full min-h-[50px] appearance-none glass-input text-white text-xs sm:text-sm font-medium rounded-2xl px-4 py-3 pr-10 focus:outline-none cursor-pointer">
-              <option value="mp4-1080p" class="bg-slate-900 text-white">MP4 (1080p FHD)</option>
-              <option value="mp4-720p" class="bg-slate-900 text-white">MP4 (720p HD)</option>
-              <option value="webm-4k" class="bg-slate-900 text-white">WEBM (4K Ultra)</option>
-              <option value="mp3-320" class="bg-slate-900 text-white">MP3 (320 kbps Audio)</option>
-              <option value="m4a-aac" class="bg-slate-900 text-white">M4A (AAC Audio)</option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-slate-400">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </div>
-          </div>
-
-          <!-- Analyze / Fetch Button -->
+          <!-- Inspect Button -->
           <button 
-            id="analyzeBtn"
-            class="min-h-[50px] px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-sm font-semibold tracking-wide shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all transform active:scale-95 cursor-pointer"
+            id="inspectMediaBtn"
+            class="min-h-[48px] px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-sm font-semibold tracking-wide shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all transform active:scale-95 cursor-pointer flex-shrink-0"
           >
-            <span id="analyzeSpinner" class="hidden">
+            <span id="inspectSpinner" class="hidden">
               <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
             </span>
-            <span id="analyzeBtnText">Analyze URL</span>
+            <span id="inspectBtnText">Inspect & Fetch Links</span>
           </button>
         </div>
 
-        <!-- Sample Presets Pill Bar -->
-        <div class="pt-2 flex flex-wrap items-center gap-2">
-          <span class="text-xs text-slate-400 font-medium mr-1">Quick Sample Presets:</span>
-          <button type="button" class="preset-pill px-3 py-1 rounded-full text-xs bg-white/5 hover:bg-white/10 text-cyan-300 border border-cyan-500/20 transition-all flex items-center gap-1.5" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-title="Big Buck Bunny (Open Blender Movie)" data-duration="09:56" data-author="Blender Foundation" data-thumb="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80">
-            <span>🐰 Big Buck Bunny (1080p)</span>
+        <!-- Direct Test Presets (Real Public Domain Media to test immediately) -->
+        <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+          <span class="text-slate-400 font-medium mr-1 flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Try Free Samples:
+          </span>
+          <button type="button" class="preset-pill px-3 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 transition-all font-mono"
+            data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            data-title="Big Buck Bunny (Animation 1080p)"
+            data-source="Direct MP4 CDN"
+            data-duration="09:56"
+            data-thumb="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80">
+            🎬 Big Buck Bunny (.mp4)
           </button>
-          <button type="button" class="preset-pill px-3 py-1 rounded-full text-xs bg-white/5 hover:bg-white/10 text-indigo-300 border border-indigo-500/20 transition-all flex items-center gap-1.5" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-title="Elephants Dream (Sci-Fi Animation)" data-duration="10:53" data-author="Orange Open Movie Project" data-thumb="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80">
-            <span>🐘 Elephants Dream (Sci-Fi)</span>
+
+          <button type="button" class="preset-pill px-3 py-1 rounded-full bg-violet-500/10 hover:bg-violet-500/20 text-violet-300 border border-violet-500/20 transition-all font-mono"
+            data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+            data-title="Elephants Dream (Open Project)"
+            data-source="Direct MP4 CDN"
+            data-duration="10:53"
+            data-thumb="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80">
+            🐘 Elephants Dream (.mp4)
           </button>
-          <button type="button" class="preset-pill px-3 py-1 rounded-full text-xs bg-white/5 hover:bg-white/10 text-emerald-300 border border-emerald-500/20 transition-all flex items-center gap-1.5" data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-title="Chromecast Tech Showcase: Chromatic Blazes" data-duration="00:15" data-author="Google Open Media Lab" data-thumb="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80">
-            <span>🔥 4K Chroma Demo</span>
+
+          <button type="button" class="preset-pill px-3 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 transition-all font-mono"
+            data-url="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+            data-title="Chromecast 4K Chroma Clip"
+            data-source="Google Media Lab"
+            data-duration="00:15"
+            data-thumb="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80">
+            🔥 Demo Clip (.mp4)
           </button>
         </div>
       </div>
     </section>
 
-    <section id="previewCard" class="hidden glass-panel rounded-3xl p-6 transition-all duration-300 border border-cyan-500/30">
-      <div class="flex flex-col md:flex-row gap-6 items-start">
-        <!-- Thumbnail Preview -->
-        <div class="relative w-full md:w-72 aspect-video rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0 group">
-          <img id="previewThumb" src="" alt="Thumbnail" class="w-full h-full object-cover">
-          <div class="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 rounded text-[11px] font-mono text-white tracking-wide" id="previewDurationBadge">
-            00:00
+    <section id="detectionSection" class="hidden transition-all duration-300">
+      <div class="glass-card rounded-3xl p-5 sm:p-7 border border-cyan-500/30 space-y-6">
+        
+        <!-- Media Overview Banner -->
+        <div class="flex flex-col sm:flex-row gap-5 items-start">
+          <!-- Thumbnail & duration badge -->
+          <div class="relative w-full sm:w-64 aspect-video rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0 group">
+            <img id="mediaThumbnail" src="" alt="Thumbnail" class="w-full h-full object-cover">
+            <span id="mediaDurationBadge" class="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 rounded text-[11px] font-mono text-white tracking-wide">
+              00:00
+            </span>
+            <span id="platformBadge" class="absolute top-2 left-2 bg-cyan-500/90 text-slate-950 font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wider">
+              Direct Link
+            </span>
           </div>
-          <div class="absolute top-2 left-2 bg-blue-500/80 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-white">
-            Available Stream
+
+          <!-- Metadata details -->
+          <div class="flex-1 space-y-2 min-w-0 w-full">
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="text-cyan-400 font-semibold tracking-wide uppercase text-[11px]">Stream Analyzed</span>
+              <span class="text-slate-600">•</span>
+              <span id="mediaSourceText" class="text-slate-400 font-mono">Direct MP4 Source</span>
+            </div>
+            <h2 id="mediaTitleText" class="text-lg sm:text-xl font-bold text-white tracking-tight line-clamp-2">
+              Title
+            </h2>
+            <p id="mediaRawUrl" class="text-xs text-slate-400 font-mono truncate max-w-xl">
+              https://...
+            </p>
+            <div class="pt-2 flex items-center gap-3">
+              <button id="copyUrlBtn" class="text-xs px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                Copy Link
+              </button>
+              <a id="previewInTabBtn" href="#" target="_blank" rel="noopener noreferrer" class="text-xs px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Open Raw Stream
+              </a>
+            </div>
           </div>
         </div>
 
-        <!-- Metadata & Format Chips -->
-        <div class="flex-1 space-y-4 w-full">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider">Stream Analysis Completed</span>
-              <span class="text-xs text-slate-500">•</span>
-              <span id="previewAuthor" class="text-xs text-slate-400 font-medium">Uploader</span>
-            </div>
-            <h2 id="previewTitle" class="text-xl font-bold text-white tracking-tight leading-snug">Video Title</h2>
-          </div>
-
-          <!-- Quality Selection Chips -->
-          <div>
-            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Select Encoding & Target Profile</label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="qualityChipsContainer">
-              <button type="button" class="quality-chip active px-3 py-2.5 rounded-xl border border-cyan-400 bg-cyan-500/10 text-left transition-all hover:border-cyan-400" data-quality="1080p" data-format="MP4" data-size="142.6 MB">
-                <div class="text-xs font-bold text-cyan-300">1080p FHD</div>
-                <div class="text-[10px] text-slate-400">MP4 • ~142 MB</div>
+        <!-- Format & Quality Tabs -->
+        <div class="space-y-4 pt-2 border-t border-white/10">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Select Download Format</label>
+            <div class="flex p-1 bg-black/40 rounded-xl border border-white/10" id="formatCategoryTabs">
+              <button class="tab-btn active px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-white bg-cyan-500/20 text-cyan-300 transition-all" data-tab="video">
+                🎥 Video (MP4)
               </button>
-              <button type="button" class="quality-chip px-3 py-2.5 rounded-xl border border-white/10 bg-white/5 text-left transition-all hover:border-white/20" data-quality="720p" data-format="MP4" data-size="68.4 MB">
-                <div class="text-xs font-bold text-slate-200">720p HD</div>
-                <div class="text-[10px] text-slate-400">MP4 • ~68 MB</div>
+              <button class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all" data-tab="audio">
+                🎵 Audio (MP3)
               </button>
-              <button type="button" class="quality-chip px-3 py-2.5 rounded-xl border border-white/10 bg-white/5 text-left transition-all hover:border-white/20" data-quality="4K" data-format="WEBM" data-size="389.2 MB">
-                <div class="text-xs font-bold text-slate-200">2160p 4K</div>
-                <div class="text-[10px] text-slate-400">WEBM • ~389 MB</div>
-              </button>
-              <button type="button" class="quality-chip px-3 py-2.5 rounded-xl border border-white/10 bg-white/5 text-left transition-all hover:border-white/20" data-quality="Audio Only" data-format="MP3" data-size="14.8 MB">
-                <div class="text-xs font-bold text-slate-200">320kbps Audio</div>
-                <div class="text-[10px] text-slate-400">MP3 • ~15 MB</div>
+              <button class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition-all" data-tab="webm">
+                🎞️ High-Res (WEBM)
               </button>
             </div>
           </div>
 
-          <!-- Action Buttons -->
-          <div class="pt-2 flex flex-wrap items-center gap-3">
-            <button id="startDownloadBtn" class="flex-1 sm:flex-none px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-semibold text-xs sm:text-sm tracking-wide shadow-lg shadow-teal-500/20 flex items-center justify-center gap-2 transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-              <span>Enqueue & Start Processing</span>
-            </button>
-            <button id="copyDirectLinkBtn" class="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-xs font-medium flex items-center gap-2 transition-colors">
-              <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-              <span>Copy Stream URL</span>
-            </button>
+          <!-- Video Tab Grid -->
+          <div id="tabContentVideo" class="tab-content grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- 1080p -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">1080p Full HD</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-semibold uppercase">High Quality</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: MP4 • ~142 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Recommended for Desktop & TV</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs font-bold tracking-wide shadow-md shadow-cyan-500/20 flex items-center justify-center gap-2 transition-all"
+                data-quality="1080p FHD" data-format="MP4" data-ext="mp4" data-size="142 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download MP4 (1080p)
+              </button>
+            </div>
+
+            <!-- 720p -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">720p HD</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-semibold uppercase">Fast</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: MP4 • ~68 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Balanced speed & visual clarity</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-wide border border-white/15 flex items-center justify-center gap-2 transition-all"
+                data-quality="720p HD" data-format="MP4" data-ext="mp4" data-size="68 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download MP4 (720p)
+              </button>
+            </div>
+
+            <!-- 480p -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">480p SD</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-500/20 text-slate-300 font-semibold uppercase">Mobile</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: MP4 • ~32 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Lightweight for cellular data</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-wide border border-white/15 flex items-center justify-center gap-2 transition-all"
+                data-quality="480p SD" data-format="MP4" data-ext="mp4" data-size="32 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download MP4 (480p)
+              </button>
+            </div>
+          </div>
+
+          <!-- Audio Tab Grid -->
+          <div id="tabContentAudio" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- 320kbps MP3 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-violet-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">320 kbps (Hi-Fi MP3)</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 font-semibold uppercase">Lossless CBR</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: MP3 • ~15 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Full studio acoustic fidelity</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-xs font-bold tracking-wide shadow-md shadow-violet-500/20 flex items-center justify-center gap-2 transition-all"
+                data-quality="320 kbps" data-format="MP3" data-ext="mp3" data-size="15 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                Download MP3 Audio (320k)
+              </button>
+            </div>
+
+            <!-- 128kbps MP3 -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-violet-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">128 kbps (Compact MP3)</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-500/20 text-slate-300 font-semibold uppercase">Compact</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: MP3 • ~6.2 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Lightweight audio voice track</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-wide border border-white/15 flex items-center justify-center gap-2 transition-all"
+                data-quality="128 kbps" data-format="MP3" data-ext="mp3" data-size="6.2 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                Download MP3 Audio (128k)
+              </button>
+            </div>
+          </div>
+
+          <!-- High-Res Tab Grid -->
+          <div id="tabContentWebm" class="tab-content hidden grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- 4K WEBM -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">4K 2160p Ultra HD</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold uppercase">Master</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: WEBM (VP9/AV1) • ~389 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Maximum pixel bitrate and HDR depth</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold tracking-wide shadow-md shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all"
+                data-quality="4K Ultra" data-format="WEBM" data-ext="webm" data-size="389 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download WEBM (4K)
+              </button>
+            </div>
+
+            <!-- 1440p WEBM -->
+            <div class="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/50 transition-all flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-sm font-bold text-white">2K 1440p Quad HD</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold uppercase">2K QHD</span>
+                </div>
+                <p class="text-xs text-slate-400 font-mono">Format: WEBM • ~210 MB</p>
+                <p class="text-[11px] text-slate-500 mt-1">Ideal for 1440p gaming displays</p>
+              </div>
+              <button class="download-trigger-btn w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-wide border border-white/15 flex items-center justify-center gap-2 transition-all"
+                data-quality="1440p QHD" data-format="WEBM" data-ext="webm" data-size="210 MB">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Download WEBM (2K)
+              </button>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <section class="space-y-4">
+    <section class="space-y-3">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-bold text-white flex items-center gap-2">
-          <span>Active Downloads</span>
-          <span id="queueCountBadge" class="text-xs font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">0 active</span>
-        </h2>
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>Active Processing Tasks</span>
+          <span id="activeCountBadge" class="text-xs font-mono px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">0 active</span>
+        </h3>
       </div>
 
-      <div id="activeQueueContainer" class="space-y-3">
-        <!-- Placeholder empty state -->
-        <div id="emptyQueueCard" class="glass-panel rounded-2xl p-8 text-center text-slate-500 border-dashed">
-          <svg class="w-10 h-10 mx-auto text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
-          <p class="text-sm font-medium">No items currently transcoding or downloading.</p>
-          <p class="text-xs text-slate-600 mt-1">Paste a media link or select a preset above to begin.</p>
+      <div id="queueListContainer" class="space-y-3">
+        <!-- Empty placeholder -->
+        <div id="emptyQueueBox" class="glass-card rounded-2xl p-8 text-center text-slate-500 border-dashed border-white/10">
+          <svg class="w-8 h-8 mx-auto text-slate-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/></svg>
+          <p class="text-xs sm:text-sm font-medium">No files currently transcoding or downloading.</p>
+          <p class="text-[11px] text-slate-600 mt-1">Paste a video link or choose a sample above to start extracting.</p>
         </div>
       </div>
     </section>
 
-    <section class="glass-panel rounded-3xl p-6 space-y-4">
-      <div class="flex items-center justify-between pb-2 border-b border-white/5">
+    <section class="glass-card rounded-3xl p-5 sm:p-6 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
         <div>
-          <h2 class="text-lg font-bold text-white">Download History</h2>
-          <p class="text-xs text-slate-400">Stored locally in your browser storage</p>
+          <h3 class="text-base font-bold text-white">Browser Download History</h3>
+          <p class="text-xs text-slate-400">Cached in local storage (GitHub Pages client side)</p>
         </div>
-        <button id="clearHistoryBtn" class="text-xs text-rose-400 hover:text-rose-300 px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-colors">
+        <button id="clearHistoryBtn" class="text-xs text-rose-400 hover:text-rose-300 px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all font-medium">
           Clear History
         </button>
       </div>
@@ -320,16 +465,16 @@
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs sm:text-sm">
           <thead>
-            <tr class="text-slate-400 border-b border-white/5 text-[11px] uppercase tracking-wider">
-              <th class="py-3 px-3">Item / Name</th>
-              <th class="py-3 px-3">Profile</th>
-              <th class="py-3 px-3">Size</th>
-              <th class="py-3 px-3">Saved At</th>
-              <th class="py-3 px-3 text-right">Actions</th>
+            <tr class="text-slate-400 border-b border-white/5 text-[11px] uppercase font-mono tracking-wider">
+              <th class="py-2.5 px-3">File / Stream</th>
+              <th class="py-2.5 px-3">Profile</th>
+              <th class="py-2.5 px-3">Estimated Size</th>
+              <th class="py-2.5 px-3">Saved Time</th>
+              <th class="py-2.5 px-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody id="historyTableBody" class="divide-y divide-white/5">
-            <!-- Dynamically populated or empty -->
+            <!-- Populated via JavaScript -->
           </tbody>
         </table>
       </div>
@@ -337,116 +482,149 @@
 
   </main>
 
-  <div id="archModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="glass-panel max-w-2xl w-full rounded-3xl border border-white/15 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+  <div id="bridgeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full rounded-3xl border border-white/15 p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-white/10">
         <div class="flex items-center gap-3">
-          <div class="p-2 rounded-xl bg-cyan-500/20 text-cyan-400">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          <div class="p-2.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
           </div>
           <div>
-            <h3 class="text-xl font-bold text-white">Full-Stack Architecture & Pipeline</h3>
-            <p class="text-xs text-slate-400">Technical requirements for media extraction backends</p>
+            <h3 class="text-lg font-bold text-white">How This Works on GitHub Pages</h3>
+            <p class="text-xs text-slate-400">Client-side static hosting vs. Full backend requirements</p>
           </div>
         </div>
-        <button id="closeArchModalBtn" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors">
+        <button id="closeBridgeModalBtn" class="p-1.5 text-slate-400 hover:text-white rounded-xl hover:bg-white/10 transition-colors">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
 
-      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
-        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-          <h4 class="font-bold text-cyan-400 flex items-center gap-2 text-sm">
-            <span>1. Cross-Origin (CORS) & Direct Stream Fetching</span>
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-1.5">
+          <h4 class="font-bold text-cyan-300 flex items-center gap-2">
+            <span>1. What works 100% natively on GitHub Pages</span>
           </h4>
-          <p>Web browsers restrict direct cross-origin video downloads when websites lack permissive <code class="font-mono text-cyan-300">Access-Control-Allow-Origin</code> headers. A production backend (typically Node.js, Go, or Python) functions as an authenticated proxy to negotiate content-range streaming.</p>
+          <p class="text-slate-300">
+            Because GitHub Pages is a static host (no Node.js/Python server), any <b>direct media URL</b> (like <code class="text-cyan-400 font-mono">.mp4</code>, <code class="text-cyan-400 font-mono">.mp3</code>, <code class="text-cyan-400 font-mono">.webm</code>) or permissive CDN video downloads directly inside your browser via standard Blob streaming.
+          </p>
         </div>
 
-        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-          <h4 class="font-bold text-indigo-400 flex items-center gap-2 text-sm">
-            <span>2. Video & Audio Remuxing via FFmpeg</span>
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-1.5">
+          <h4 class="font-bold text-violet-300 flex items-center gap-2">
+            <span>2. Why platforms like YouTube / TikTok block direct browsers</span>
           </h4>
-          <p>High-resolution modern web players stream video (H.264/AV1/VP9) and audio (AAC/Opus) on completely separated adaptive bitrates (DASH / HLS). The server uses <code class="font-mono text-indigo-300">ffmpeg -i video.mp4 -i audio.m4a -c copy output.mp4</code> to merge them into a single container without costly re-encoding.</p>
+          <p class="text-slate-300">
+            Modern video sites use <b>CORS (Cross-Origin Resource Sharing)</b> locks and separate adaptive streams (<code class="text-violet-400 font-mono">.m3u8</code> / HLS). The browser cannot merge audio and video tracks without an intermediary FFmpeg demuxer.
+          </p>
         </div>
 
-        <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2">
-          <h4 class="font-bold text-emerald-400 flex items-center gap-2 text-sm">
-            <span>3. Terms of Service & Fair Use Standards</span>
+        <!-- Optional Custom Backend Endpoint Config -->
+        <div class="p-4 rounded-2xl bg-cyan-950/20 border border-cyan-500/20 space-y-3">
+          <h4 class="font-bold text-white flex items-center gap-2">
+            <span>3. Connect Your Own Free Backend (Optional)</span>
           </h4>
-          <p>Always respect copyright laws, creative commons terms, and the Terms of Service of content platforms. This interface is tailored for public-domain footage, open creative archives, personal media backups, and permissible fair use workflows.</p>
+          <p class="text-slate-400 text-xs">
+            If you deploy a free backend (like a Python <code class="text-cyan-300 font-mono">yt-dlp</code> API on Render, Railway, or Vercel), enter your API endpoint below to automatically route external URLs through your custom server:
+          </p>
+          <div class="space-y-2">
+            <input 
+              id="customApiInput"
+              type="url" 
+              placeholder="https://your-custom-ytdlp-api.onrender.com"
+              class="w-full glass-input px-3.5 py-2.5 rounded-xl text-xs font-mono text-white placeholder-slate-500 focus:outline-none"
+            >
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>Saved locally in browser</span>
+              <button id="saveCustomApiBtn" class="px-3 py-1 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 rounded-lg font-semibold transition-all">
+                Save API Route
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="pt-2 flex justify-end">
-        <button id="closeArchModalBtn2" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition-colors">
-          Got it, Close
+        <button id="closeBridgeModalBtn2" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs transition-colors">
+          Understood
         </button>
       </div>
     </div>
   </div>
 
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+  <!-- Toast Container -->
+  <div id="toastDock" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
 
+  <!-- Footer -->
   <footer class="w-full border-t border-white/5 py-6 text-center text-xs text-slate-500 mt-auto">
     <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div>StreamVault Engine &copy; 2026. Designed for open media & CC archives.</div>
-      <div class="flex items-center gap-4 text-slate-400">
-        <span>WebAssembly Ready</span>
+      <div>StreamRip Studio &copy; 2026 • Ready for GitHub Pages deployment</div>
+      <div class="flex items-center gap-3 text-slate-400 font-mono text-[11px]">
+        <span>Single-File Build</span>
         <span>•</span>
-        <span>Client Transcode Demo</span>
+        <span>Zero NPM Dependencies</span>
       </div>
     </div>
   </footer>
 
   <script>
-    // State Management
-    let currentPreview = null;
-    let selectedQuality = {
-      quality: '1080p',
-      format: 'MP4',
-      size: '142.6 MB'
-    };
-    let activeDownloads = [];
-    let downloadHistory = JSON.parse(localStorage.getItem('streamvault_history') || '[]');
+    // App State
+    let currentAnalyzedMedia = null;
+    let activeTasks = [];
+    let historyRecords = JSON.parse(localStorage.getItem('streamrip_history') || '[]');
+    let customApiEndpoint = localStorage.getItem('streamrip_custom_api') || '';
 
-    // DOM Elements
-    const videoUrlInput = document.getElementById('videoUrlInput');
-    const pasteBtn = document.getElementById('pasteBtn');
-    const formatSelector = document.getElementById('formatSelector');
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const analyzeSpinner = document.getElementById('analyzeSpinner');
-    const analyzeBtnText = document.getElementById('analyzeBtnText');
-    const previewCard = document.getElementById('previewCard');
-    const previewThumb = document.getElementById('previewThumb');
-    const previewTitle = document.getElementById('previewTitle');
-    const previewAuthor = document.getElementById('previewAuthor');
-    const previewDurationBadge = document.getElementById('previewDurationBadge');
-    const startDownloadBtn = document.getElementById('startDownloadBtn');
-    const copyDirectLinkBtn = document.getElementById('copyDirectLinkBtn');
-    const activeQueueContainer = document.getElementById('activeQueueContainer');
-    const emptyQueueCard = document.getElementById('emptyQueueCard');
-    const queueCountBadge = document.getElementById('queueCountBadge');
+    // DOM References
+    const mediaUrlInput = document.getElementById('mediaUrlInput');
+    const clearUrlBtn = document.getElementById('clearUrlBtn');
+    const pasteUrlBtn = document.getElementById('pasteUrlBtn');
+    const inspectMediaBtn = document.getElementById('inspectMediaBtn');
+    const inspectSpinner = document.getElementById('inspectSpinner');
+    const inspectBtnText = document.getElementById('inspectBtnText');
+    const detectionSection = document.getElementById('detectionSection');
+    const mediaThumbnail = document.getElementById('mediaThumbnail');
+    const mediaDurationBadge = document.getElementById('mediaDurationBadge');
+    const platformBadge = document.getElementById('platformBadge');
+    const mediaSourceText = document.getElementById('mediaSourceText');
+    const mediaTitleText = document.getElementById('mediaTitleText');
+    const mediaRawUrl = document.getElementById('mediaRawUrl');
+    const copyUrlBtn = document.getElementById('copyUrlBtn');
+    const previewInTabBtn = document.getElementById('previewInTabBtn');
+    const queueListContainer = document.getElementById('queueListContainer');
+    const emptyQueueBox = document.getElementById('emptyQueueBox');
+    const activeCountBadge = document.getElementById('activeCountBadge');
     const historyTableBody = document.getElementById('historyTableBody');
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
-    const toastContainer = document.getElementById('toastContainer');
-    const archModal = document.getElementById('archModal');
-    const openArchModalBtn = document.getElementById('openArchModalBtn');
-    const closeArchModalBtn = document.getElementById('closeArchModalBtn');
-    const closeArchModalBtn2 = document.getElementById('closeArchModalBtn2');
+    const toastDock = document.getElementById('toastDock');
+    const bridgeModal = document.getElementById('bridgeModal');
+    const openBridgeModalBtn = document.getElementById('openBridgeModalBtn');
+    const closeBridgeModalBtn = document.getElementById('closeBridgeModalBtn');
+    const closeBridgeModalBtn2 = document.getElementById('closeBridgeModalBtn2');
+    const customApiInput = document.getElementById('customApiInput');
+    const saveCustomApiBtn = document.getElementById('saveCustomApiBtn');
 
-    function showToast(message, type = 'info') {
+    // Tab buttons & contents
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = {
+      video: document.getElementById('tabContentVideo'),
+      audio: document.getElementById('tabContentAudio'),
+      webm: document.getElementById('tabContentWebm')
+    };
+
+    // Helper: Toast Notifications
+    function triggerToast(message, type = 'info') {
       const toast = document.createElement('div');
-      const bgColors = {
-        info: 'bg-slate-900/90 border-blue-500/40 text-blue-300',
+      const colors = {
+        info: 'bg-slate-900/90 border-cyan-500/40 text-cyan-300',
         success: 'bg-slate-900/90 border-emerald-500/40 text-emerald-300',
         error: 'bg-slate-900/90 border-rose-500/40 text-rose-300'
       };
-      toast.className = `px-4 py-3 rounded-2xl border backdrop-blur-xl shadow-2xl text-xs sm:text-sm font-medium flex items-center gap-3 transition-all duration-300 pointer-events-auto transform translate-y-4 opacity-0 ${bgColors[type] || bgColors.info}`;
+      toast.className = `px-4 py-3 rounded-2xl border backdrop-blur-xl shadow-2xl text-xs sm:text-sm font-medium flex items-center gap-3 transition-all duration-300 pointer-events-auto transform translate-y-4 opacity-0 ${colors[type] || colors.info}`;
       toast.innerHTML = `
         <span class="w-2 h-2 rounded-full ${type === 'success' ? 'bg-emerald-400' : type === 'error' ? 'bg-rose-400' : 'bg-cyan-400'}"></span>
         <span>${message}</span>
       `;
-      toastContainer.appendChild(toast);
+      toastDock.appendChild(toast);
 
       requestAnimationFrame(() => {
         toast.classList.remove('translate-y-4', 'opacity-0');
@@ -458,255 +636,296 @@
       }, 3500);
     }
 
-    pasteBtn.addEventListener('click', async () => {
+    // Input handlers
+    mediaUrlInput.addEventListener('input', () => {
+      if (mediaUrlInput.value.trim().length > 0) {
+        clearUrlBtn.classList.remove('hidden');
+      } else {
+        clearUrlBtn.classList.add('hidden');
+      }
+    });
+
+    clearUrlBtn.addEventListener('click', () => {
+      mediaUrlInput.value = '';
+      clearUrlBtn.classList.add('hidden');
+      mediaUrlInput.focus();
+    });
+
+    pasteUrlBtn.addEventListener('click', async () => {
       try {
         if (navigator.clipboard && navigator.clipboard.readText) {
           const text = await navigator.clipboard.readText();
-          videoUrlInput.value = text.trim();
-          showToast('Pasted URL from clipboard', 'info');
+          if (text) {
+            mediaUrlInput.value = text.trim();
+            clearUrlBtn.classList.remove('hidden');
+            triggerToast('Link pasted from clipboard', 'info');
+          }
         } else {
-          // Fallback message
-          showToast('Clipboard access not permitted. Use Ctrl+V / Cmd+V.', 'info');
+          triggerToast('Press Ctrl+V / Cmd+V to paste', 'info');
         }
       } catch (err) {
-        showToast('Please press Ctrl+V / Cmd+V to paste', 'info');
+        triggerToast('Clipboard access denied. Please paste manually.', 'info');
       }
     });
 
-    document.querySelectorAll('.preset-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        videoUrlInput.value = pill.dataset.url;
-        loadMediaDetails({
-          url: pill.dataset.url,
-          title: pill.dataset.title,
-          author: pill.dataset.author,
-          duration: pill.dataset.duration,
-          thumb: pill.dataset.thumb
+    // Preset Sample Handlers
+    document.querySelectorAll('.preset-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const url = btn.dataset.url;
+        const title = btn.dataset.title;
+        const source = btn.dataset.source;
+        const duration = btn.dataset.duration;
+        const thumb = btn.dataset.thumb;
+
+        mediaUrlInput.value = url;
+        clearUrlBtn.classList.remove('hidden');
+
+        displayAnalyzedMedia({
+          url,
+          title,
+          source,
+          duration,
+          thumb,
+          platform: 'Direct MP4'
         });
-        showToast(`Loaded sample: ${pill.dataset.title}`, 'success');
+        triggerToast(`Loaded test sample: ${title}`, 'success');
       });
     });
 
-    analyzeBtn.addEventListener('click', () => {
-      const url = videoUrlInput.value.trim();
+    // Inspect & Fetch URL Logic
+    inspectMediaBtn.addEventListener('click', () => {
+      const url = mediaUrlInput.value.trim();
       if (!url) {
-        showToast('Please enter or paste a valid media URL first', 'error');
-        videoUrlInput.focus();
+        triggerToast('Please paste a media URL or click a demo sample above', 'error');
+        mediaUrlInput.focus();
         return;
       }
 
-      // UI Loading state
-      analyzeSpinner.classList.remove('hidden');
-      analyzeBtnText.textContent = 'Probing Streams...';
-      analyzeBtn.disabled = true;
+      // UI state
+      inspectSpinner.classList.remove('hidden');
+      inspectBtnText.textContent = 'Probing Media Stream...';
+      inspectMediaBtn.disabled = true;
 
       setTimeout(() => {
-        analyzeSpinner.classList.add('hidden');
-        analyzeBtnText.textContent = 'Analyze URL';
-        analyzeBtn.disabled = false;
+        inspectSpinner.classList.add('hidden');
+        inspectBtnText.textContent = 'Inspect & Fetch Links';
+        inspectMediaBtn.disabled = false;
 
-        // Construct mock metadata based on URL
-        let mockTitle = "Direct Web Stream #" + Math.floor(1000 + Math.random() * 9000);
-        let mockAuthor = "Remote CDN Host";
-        let mockDuration = "04:32";
-        let mockThumb = "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&auto=format&fit=crop&q=80";
+        // Platform auto-detection
+        let detectedPlatform = "Direct Web Stream";
+        let detectedThumb = "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&auto=format&fit=crop&q=80";
+        let detectedDuration = "03:45";
+        let detectedTitle = "Stream Track #" + Math.floor(1000 + Math.random() * 9000);
 
         if (url.includes('BigBuckBunny')) {
-          mockTitle = "Big Buck Bunny (Blender Open Project)";
-          mockAuthor = "Blender Foundation";
-          mockDuration = "09:56";
-          mockThumb = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80";
+          detectedTitle = "Big Buck Bunny (Blender Open Foundation)";
+          detectedDuration = "09:56";
+          detectedPlatform = "Direct MP4 Video";
+          detectedThumb = "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80";
         } else if (url.includes('ElephantsDream')) {
-          mockTitle = "Elephants Dream (Sci-Fi Animation)";
-          mockAuthor = "Orange Open Movie Project";
-          mockDuration = "10:53";
-          mockThumb = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80";
+          detectedTitle = "Elephants Dream (Sci-Fi Animation Project)";
+          detectedDuration = "10:53";
+          detectedPlatform = "Direct MP4 Video";
+          detectedThumb = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80";
+        } else if (url.includes('youtube.com') || url.includes('youtu.be')) {
+          detectedPlatform = "YouTube Stream";
+          detectedTitle = "YouTube Video Stream (Requires Backend Bridge for CORS)";
+        } else if (url.includes('vimeo.com')) {
+          detectedPlatform = "Vimeo Stream";
+          detectedTitle = "Vimeo Media Stream";
+        } else if (url.includes('soundcloud.com')) {
+          detectedPlatform = "SoundCloud Audio";
+          detectedTitle = "SoundCloud High-Bitrate Track";
+          detectedThumb = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80";
         }
 
-        loadMediaDetails({
+        displayAnalyzedMedia({
           url,
-          title: mockTitle,
-          author: mockAuthor,
-          duration: mockDuration,
-          thumb: mockThumb
+          title: detectedTitle,
+          source: detectedPlatform,
+          duration: detectedDuration,
+          thumb: detectedThumb,
+          platform: detectedPlatform
         });
-        showToast('Stream tracks identified successfully!', 'success');
-      }, 750);
+
+        triggerToast('Media stream analyzed successfully!', 'success');
+      }, 700);
     });
 
-    function loadMediaDetails(data) {
-      currentPreview = data;
-      previewTitle.textContent = data.title;
-      previewAuthor.textContent = data.author;
-      previewDurationBadge.textContent = data.duration;
-      previewThumb.src = data.thumb;
-      previewCard.classList.remove('hidden');
+    function displayAnalyzedMedia(data) {
+      currentAnalyzedMedia = data;
+      mediaThumbnail.src = data.thumb;
+      mediaDurationBadge.textContent = data.duration;
+      platformBadge.textContent = data.platform;
+      mediaSourceText.textContent = data.source;
+      mediaTitleText.textContent = data.title;
+      mediaRawUrl.textContent = data.url;
+      previewInTabBtn.href = data.url;
 
-      // Smooth scroll to preview
-      previewCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      detectionSection.classList.remove('hidden');
+      detectionSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    const qualityChips = document.querySelectorAll('.quality-chip');
-    qualityChips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        qualityChips.forEach(c => {
-          c.classList.remove('active', 'border-cyan-400', 'bg-cyan-500/10');
-          c.classList.add('border-white/10', 'bg-white/5');
-          const title = c.querySelector('div:first-child');
-          title.classList.remove('text-cyan-300');
-          title.classList.add('text-slate-200');
+    // Tab Switching (Video / Audio / Webm)
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.dataset.tab;
+        tabBtns.forEach(b => {
+          b.classList.remove('active', 'bg-cyan-500/20', 'text-cyan-300');
+          b.classList.add('text-slate-400');
         });
+        btn.classList.add('active', 'bg-cyan-500/20', 'text-cyan-300');
+        btn.classList.remove('text-slate-400');
 
-        chip.classList.add('active', 'border-cyan-400', 'bg-cyan-500/10');
-        chip.classList.remove('border-white/10', 'bg-white/5');
-        const title = chip.querySelector('div:first-child');
-        title.classList.add('text-cyan-300');
-        title.classList.remove('text-slate-200');
-
-        selectedQuality = {
-          quality: chip.dataset.quality,
-          format: chip.dataset.format,
-          size: chip.dataset.size
-        };
+        Object.keys(tabContents).forEach(key => {
+          if (key === targetTab) {
+            tabContents[key].classList.remove('hidden');
+          } else {
+            tabContents[key].classList.add('hidden');
+          }
+        });
       });
     });
 
-    copyDirectLinkBtn.addEventListener('click', () => {
-      if (!currentPreview) return;
-      const dummyInput = document.createElement('input');
-      dummyInput.value = currentPreview.url;
-      document.body.appendChild(dummyInput);
-      dummyInput.select();
+    // Copy stream URL button
+    copyUrlBtn.addEventListener('click', () => {
+      if (!currentAnalyzedMedia) return;
+      const temp = document.createElement('input');
+      temp.value = currentAnalyzedMedia.url;
+      document.body.appendChild(temp);
+      temp.select();
       try {
         document.execCommand('copy');
-        showToast('Direct stream link copied to clipboard!', 'info');
+        triggerToast('Raw media URL copied to clipboard!', 'info');
       } catch (err) {
-        showToast('Could not auto-copy link', 'error');
+        triggerToast('Could not copy automatically', 'error');
       }
-      document.body.removeChild(dummyInput);
+      document.body.removeChild(temp);
     });
 
-    startDownloadBtn.addEventListener('click', () => {
-      if (!currentPreview) return;
+    // Handle Download Triggers
+    document.querySelectorAll('.download-trigger-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!currentAnalyzedMedia) return;
 
-      const queueId = 'dl_' + Date.now();
-      const downloadItem = {
-        id: queueId,
-        title: currentPreview.title,
-        author: currentPreview.author,
-        quality: selectedQuality.quality,
-        format: selectedQuality.format,
-        size: selectedQuality.size,
-        url: currentPreview.url,
-        progress: 0,
-        speed: '0 MB/s',
-        status: 'Connecting to CDN...',
-        stage: 1
-      };
+        const quality = btn.dataset.quality;
+        const format = btn.dataset.format;
+        const ext = btn.dataset.ext;
+        const size = btn.dataset.size;
 
-      activeDownloads.push(downloadItem);
-      renderQueue();
-      simulateDownloadProgress(queueId);
-      showToast(`Added "${downloadItem.title}" to transcode queue`, 'info');
+        const taskId = 'task_' + Date.now();
+        const newTask = {
+          id: taskId,
+          title: currentAnalyzedMedia.title,
+          quality: quality,
+          format: format,
+          ext: ext,
+          size: size,
+          url: currentAnalyzedMedia.url,
+          progress: 0,
+          speed: '0 MB/s',
+          status: 'Initializing stream pipeline...'
+        };
+
+        activeTasks.push(newTask);
+        renderQueue();
+        simulateStreamDownload(taskId);
+        triggerToast(`Started packaging ${format} (${quality})`, 'info');
+      });
     });
 
+    // Render Active Task Queue
     function renderQueue() {
-      if (activeDownloads.length === 0) {
-        emptyQueueCard.classList.remove('hidden');
-        queueCountBadge.textContent = '0 active';
+      if (activeTasks.length === 0) {
+        emptyQueueBox.classList.remove('hidden');
+        activeCountBadge.textContent = '0 active';
         return;
       }
 
-      emptyQueueCard.classList.add('hidden');
-      queueCountBadge.textContent = `${activeDownloads.length} active`;
+      emptyQueueBox.classList.add('hidden');
+      activeCountBadge.textContent = `${activeTasks.length} active`;
 
-      // Update or render cards
-      activeDownloads.forEach(item => {
-        let card = document.getElementById(item.id);
+      activeTasks.forEach(task => {
+        let card = document.getElementById(task.id);
         if (!card) {
           card = document.createElement('div');
-          card.id = item.id;
-          card.className = "glass-panel rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 transition-all";
-          activeQueueContainer.prepend(card);
+          card.id = task.id;
+          card.className = "glass-card rounded-2xl p-4 sm:p-5 border border-white/10 space-y-3 transition-all";
+          queueListContainer.prepend(card);
         }
 
         card.innerHTML = `
-          <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                  ${item.format} • ${item.quality}
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                  ${task.format} • ${task.quality}
                 </span>
-                <span class="text-xs text-slate-400 truncate">${item.author}</span>
+                <span class="text-xs text-slate-400 font-mono">${task.size}</span>
               </div>
-              <h3 class="text-sm sm:text-base font-semibold text-white truncate mt-1">${item.title}</h3>
+              <h4 class="text-sm font-semibold text-white truncate mt-1">${task.title}</h4>
             </div>
             <div class="text-right flex-shrink-0">
-              <span class="text-xs sm:text-sm font-mono font-bold text-cyan-400">${item.progress}%</span>
-              <div class="text-[11px] text-slate-400 font-mono">${item.speed}</div>
+              <span class="text-xs sm:text-sm font-mono font-bold text-cyan-400">${task.progress}%</span>
+              <div class="text-[11px] text-slate-400 font-mono">${task.speed}</div>
             </div>
           </div>
 
-          <!-- Progress Bar -->
+          <!-- Progress track -->
           <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden relative">
-            <div class="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 rounded-full transition-all duration-300 shimmer-active" style="width: ${item.progress}%"></div>
+            <div class="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-violet-500 rounded-full transition-all duration-300 shimmer-bar" style="width: ${task.progress}%"></div>
           </div>
 
-          <!-- Status & Actions -->
           <div class="flex items-center justify-between text-xs text-slate-400">
             <div class="flex items-center gap-2 font-mono">
-              <span class="w-2 h-2 rounded-full ${item.progress === 100 ? 'bg-emerald-400' : 'bg-cyan-400 animate-ping'}"></span>
-              <span>${item.status}</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="font-mono text-slate-500">${item.size}</span>
+              <span class="w-2 h-2 rounded-full ${task.progress === 100 ? 'bg-emerald-400' : 'bg-cyan-400 animate-ping'}"></span>
+              <span>${task.status}</span>
             </div>
           </div>
         `;
       });
     }
 
-    function simulateDownloadProgress(id) {
+    // Simulate Client-Side Transcoding & Real Trigger
+    function simulateStreamDownload(taskId) {
       const interval = setInterval(() => {
-        const item = activeDownloads.find(d => d.id === id);
-        if (!item) {
+        const task = activeTasks.find(t => t.id === taskId);
+        if (!task) {
           clearInterval(interval);
           return;
         }
 
-        // Increment logic
-        const increment = Math.floor(Math.random() * 12) + 6;
-        item.progress = Math.min(100, item.progress + increment);
+        const step = Math.floor(Math.random() * 12) + 8;
+        task.progress = Math.min(100, task.progress + step);
 
-        // Stages and speed simulation
-        if (item.progress < 40) {
-          item.status = 'Fetching video & audio chunks...';
-          item.speed = (Math.random() * 4 + 7).toFixed(1) + ' MB/s';
-        } else if (item.progress < 85) {
-          item.status = 'Demuxing & FFmpeg container remux...';
-          item.speed = (Math.random() * 2 + 12).toFixed(1) + ' MB/s';
-        } else if (item.progress < 100) {
-          item.status = 'Finalizing container headers...';
-          item.speed = '2.4 MB/s';
+        if (task.progress < 35) {
+          task.status = 'Fetching media audio/video chunks...';
+          task.speed = (Math.random() * 5 + 10).toFixed(1) + ' MB/s';
+        } else if (task.progress < 75) {
+          task.status = 'Demuxing & container remuxing...';
+          task.speed = (Math.random() * 3 + 14).toFixed(1) + ' MB/s';
+        } else if (task.progress < 100) {
+          task.status = 'Finalizing container headers...';
+          task.speed = '4.1 MB/s';
         } else {
-          item.status = 'Complete! File packaged.';
-          item.speed = 'Done';
+          task.status = 'Complete! File delivered.';
+          task.speed = 'Done';
           clearInterval(interval);
 
-          // Add to History & trigger mock download save
           setTimeout(() => {
-            saveToHistory({
-              id: item.id,
-              title: item.title,
-              quality: `${item.format} (${item.quality})`,
-              size: item.size,
-              date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              url: item.url
+            // Save to browser history
+            addToHistory({
+              id: task.id,
+              title: task.title,
+              quality: `${task.format} (${task.quality})`,
+              size: task.size,
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              url: task.url
             });
 
-            // Remove from queue
-            activeDownloads = activeDownloads.filter(d => d.id !== id);
-            const card = document.getElementById(id);
+            // Remove from active queue
+            activeTasks = activeTasks.filter(t => t.id !== taskId);
+            const card = document.getElementById(taskId);
             if (card) {
               card.classList.add('opacity-0', 'scale-95');
               setTimeout(() => {
@@ -715,54 +934,69 @@
               }, 300);
             }
 
-            showToast(`Download finished: "${item.title}"`, 'success');
-            triggerVirtualFileSave(item.title, item.format);
+            // Deliver real download file via browser Blob
+            deliverClientFile(task.title, task.ext, task.url);
+            triggerToast(`Completed: "${task.title}"`, 'success');
           }, 800);
         }
 
         renderQueue();
-      }, 400);
+      }, 350);
     }
 
-    function triggerVirtualFileSave(filename, ext) {
+    // Trigger Browser File Save (Direct or Fallback Blob)
+    function deliverClientFile(filename, ext, directUrl) {
       try {
-        const blob = new Blob([
-          `StreamVault Transcoded Media Container: ${filename}\nFormat: ${ext}\nGenerated on: ${new Date().toISOString()}`
-        ], { type: 'text/plain;charset=utf-8' });
-        const dummyUrl = URL.createObjectURL(blob);
+        // If it's a direct mp4 sample link and user wanted mp4, trigger direct download
+        if (directUrl.endsWith('.mp4') && ext === 'mp4') {
+          const directAnchor = document.createElement('a');
+          directAnchor.href = directUrl;
+          directAnchor.download = `${filename.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${ext}`;
+          directAnchor.target = '_blank';
+          document.body.appendChild(directAnchor);
+          directAnchor.click();
+          document.body.removeChild(directAnchor);
+          return;
+        }
+
+        // Otherwise generate a local simulated media container for testing
+        const content = `StreamRip Media Package\nFile: ${filename}\nFormat: ${ext.toUpperCase()}\nExported via GitHub Pages Client Transcoder on: ${new Date().toISOString()}`;
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+        const objectUrl = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.href = dummyUrl;
-        a.download = `${filename.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${ext.toLowerCase()}`;
+        a.href = objectUrl;
+        a.download = `${filename.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.${ext}`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        URL.revokeObjectURL(dummyUrl);
-      } catch (e) {
-        console.warn('Could not launch virtual file download', e);
+        URL.revokeObjectURL(objectUrl);
+      } catch (err) {
+        console.warn('File download error', err);
       }
     }
 
-    function saveToHistory(record) {
-      downloadHistory.unshift(record);
-      if (downloadHistory.length > 20) downloadHistory.pop();
-      localStorage.setItem('streamvault_history', JSON.stringify(downloadHistory));
-      renderHistory();
+    // History Storage Management
+    function addToHistory(record) {
+      historyRecords.unshift(record);
+      if (historyRecords.length > 25) historyRecords.pop();
+      localStorage.setItem('streamrip_history', JSON.stringify(historyRecords));
+      renderHistoryTable();
     }
 
-    function renderHistory() {
+    function renderHistoryTable() {
       historyTableBody.innerHTML = '';
-      if (downloadHistory.length === 0) {
+      if (historyRecords.length === 0) {
         historyTableBody.innerHTML = `
           <tr>
-            <td colspan="5" class="py-8 text-center text-slate-500 font-medium">
-              No previous downloads recorded yet.
+            <td colspan="5" class="py-6 text-center text-slate-500 font-medium">
+              No recent downloads logged.
             </td>
           </tr>
         `;
         return;
       }
 
-      downloadHistory.forEach((item, index) => {
+      historyRecords.forEach((item, index) => {
         const tr = document.createElement('tr');
         tr.className = "hover:bg-white/[0.02] transition-colors";
         tr.innerHTML = `
@@ -776,10 +1010,10 @@
             </span>
           </td>
           <td class="py-3 px-3 font-mono text-slate-300">${item.size}</td>
-          <td class="py-3 px-3 text-slate-400">${item.date}</td>
+          <td class="py-3 px-3 text-slate-400 font-mono">${item.time}</td>
           <td class="py-3 px-3 text-right">
-            <button class="redownload-btn text-xs font-semibold px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 transition-all mr-1.5" data-index="${index}">
-              Redownload
+            <button class="re-inspect-btn text-xs font-semibold px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 transition-all mr-1" data-index="${index}">
+              Re-inspect
             </button>
             <button class="delete-history-btn text-xs px-2 py-1 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors" data-index="${index}">
               &times;
@@ -789,55 +1023,71 @@
         historyTableBody.appendChild(tr);
       });
 
-      // Bind action buttons
-      document.querySelectorAll('.redownload-btn').forEach(btn => {
+      // Bind re-inspect actions
+      document.querySelectorAll('.re-inspect-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const idx = e.currentTarget.dataset.index;
-          const item = downloadHistory[idx];
+          const item = historyRecords[idx];
           if (item) {
-            videoUrlInput.value = item.url;
-            loadMediaDetails({
+            mediaUrlInput.value = item.url;
+            clearUrlBtn.classList.remove('hidden');
+            displayAnalyzedMedia({
               url: item.url,
               title: item.title,
-              author: "Verified Archive",
-              duration: "05:00",
-              thumb: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&auto=format&fit=crop&q=80"
+              source: "Saved Archive",
+              duration: "04:30",
+              thumb: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&auto=format&fit=crop&q=80",
+              platform: "Cached Stream"
             });
-            showToast(`Loaded ${item.title} for re-download`, 'info');
+            triggerToast(`Loaded ${item.title}`, 'info');
           }
         });
       });
 
+      // Bind delete single history
       document.querySelectorAll('.delete-history-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const idx = parseInt(e.currentTarget.dataset.index, 10);
-          downloadHistory.splice(idx, 1);
-          localStorage.setItem('streamvault_history', JSON.stringify(downloadHistory));
-          renderHistory();
-          showToast('History item removed', 'info');
+          historyRecords.splice(idx, 1);
+          localStorage.setItem('streamrip_history', JSON.stringify(historyRecords));
+          renderHistoryTable();
+          triggerToast('History entry removed', 'info');
         });
       });
     }
 
     clearHistoryBtn.addEventListener('click', () => {
-      if (downloadHistory.length === 0) return;
-      downloadHistory = [];
-      localStorage.removeItem('streamvault_history');
-      renderHistory();
-      showToast('Download history cleared', 'info');
+      if (historyRecords.length === 0) return;
+      historyRecords = [];
+      localStorage.removeItem('streamrip_history');
+      renderHistoryTable();
+      triggerToast('Download history cleared', 'info');
     });
 
-    openArchModalBtn.addEventListener('click', () => archModal.classList.remove('hidden'));
-    closeArchModalBtn.addEventListener('click', () => archModal.classList.add('hidden'));
-    closeArchModalBtn2.addEventListener('click', () => archModal.classList.add('hidden'));
-    archModal.addEventListener('click', (e) => {
-      if (e.target === archModal) archModal.classList.add('hidden');
+    // Custom Backend Bridge Modal
+    openBridgeModalBtn.addEventListener('click', () => {
+      customApiInput.value = customApiEndpoint;
+      bridgeModal.classList.remove('hidden');
+    });
+    closeBridgeModalBtn.addEventListener('click', () => bridgeModal.classList.add('hidden'));
+    closeBridgeModalBtn2.addEventListener('click', () => bridgeModal.classList.add('hidden'));
+    bridgeModal.addEventListener('click', (e) => {
+      if (e.target === bridgeModal) bridgeModal.classList.add('hidden');
     });
 
+    saveCustomApiBtn.addEventListener('click', () => {
+      customApiEndpoint = customApiInput.value.trim();
+      localStorage.setItem('streamrip_custom_api', customApiEndpoint);
+      triggerToast(customApiEndpoint ? 'Custom API endpoint saved!' : 'Custom API reset to client mode', 'success');
+      bridgeModal.classList.add('hidden');
+    });
+
+    // On Load Initializer
     window.addEventListener('DOMContentLoaded', () => {
-      renderHistory();
-      // Pre-fill with a public sample for instant testability
-      videoUrlInput.value = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+      renderHistoryTable();
+      // Pre-populate with sample for immediate zero-friction testing
+      mediaUrlInput.value = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+      clearUrlBtn.classList.remove('hidden');
     });
   </script>
 </body>
