@@ -1,0 +1,61 @@
+[
+    {
+        "id": "shw_0000001",
+        "title": "South Park",
+        "type": "Show",
+        "format": "TV Series",
+        "aired": "August 13, 1997",
+        "status": "Ongoing",
+        "genres": ["Comedy", "Satire", "Animation", "Adult"],
+        "themes": ["Social Commentary", "Pop Culture", "Political Satire"],
+        "creators": ["Trey Parker", "Matt Stone"],
+        "studio": "Comedy Central",
+        "age": "29 years old",
+        "age_range": "16+",
+        "staff_count": "70+ Employees",
+        "seasons": "29 Seasons",
+        "episodes": "339+ Episodes",
+        "duration": "22 Minutes",
+        "streaming": [
+            { "platform": "HBO Max", "url": "https://www.hbomax.com" },
+            { "platform": "Paramount+", "url": "https://www.paramountplus.com" },
+            { "platform": "Comedy Central", "url": "https://www.cc.com/shows/south-park" }
+        ],
+        "sequals": [
+            {
+                "title": "South Park: Bigger, Longer & Uncut",
+                "release": "June 30, 1999",
+                "type": "Movie"
+            }
+        ],
+        "media": [
+            {
+                "youtube": "@SouthPark",
+                "url": "https://www.youtube.com/@SouthPark"
+            },
+            {
+                "instagram": "southpark",
+                "url": "https://www.instagram.com/southpark/"
+            },
+            {
+                "twitter": "SouthPark",
+                "url": "https://x.com/SouthPark"
+            },
+            {
+                "facebook": "SouthPark",
+                "url": "https://www.facebook.com/SouthPark"
+            },
+            {
+                "tiktok": "southpark",
+                "url": "https://www.tiktok.com/@southpark"
+            },
+            {
+                "reddit": "r/southpark",
+                "url": "https://www.reddit.com/r/southpark/"
+            }
+        ],
+        "cover_path": "assets/images/covers/anime/ani_001.webp",
+        "banner_path": "assets/images/covers/anime/ani_001_banner.webp",
+        "description": "South Park is an American animated sitcom created by Trey Parker and Matt Stone. The show is known for its dark humor, satirical take on current events, and its unique animation style. It follows the adventures of four boys—Stan, Kyle, Cartman, and Kenny—in the fictional town of South Park, Colorado."
+    }
+]
