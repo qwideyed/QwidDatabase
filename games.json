@@ -1,0 +1,239 @@
+[
+    {
+        "id": "g_0000001",
+        "title": "Roblox",
+        "type": "Game",
+        "genre": ["Sandbox", "Adventure", "Simulation", "MMO", "Social", "Platformer", "Racing", "Fighting", "Shooter", "Horror", "Puzzle", "Strategy", "Sports", "Music", "Educational", "Casual", "Role-Playing", "Survival", "Action", "Fantasy", "Sci-Fi", "Mystery", "Thriller", "Historical", "Stealth", "Open World", "Party", "Card Game", "Board Game", "Trivia", "Idle", "VR", "AR", "Multiplayer", "Singleplayer", "Co-op", "Competitive", "Creative", "Building", "Exploration", "Simulation", "Tycoon", "RPG", "MMORPG", "FPS", "TPS", "Platformer", "Endless Runner", "Survival Horror", "Visual Novel", "Dating Sim", "Farming Sim", "City Builder", "Tower Defense", "horror", "Action-Adventure", "Stealth", "Puzzle-Platformer", "Rhythm", "Sports Simulation", "Racing Simulation", "Flight Simulation", "Space Simulation", "Military Simulation", "Life Simulation", "Business Simulation", "Educational Simulation", "Virtual Pet", "Card Battle", "Board Game Strategy", "Trivia Quiz", "Idle Clicker", "VR Experience", "AR Experience"],
+        "created": "2004",
+        "release": "September 1, 2006",
+        "previous_names": ["DynaBlocks"],
+        "creators": ["David Baszucki", "Erik Cassel"],
+        "company": "Roblox Corporation",
+        "staff_count": "3,000+ Employees",
+        "age": "20+",
+        "age_range": "All Ages",
+        "platforms": ["PC", "Mac", "iOS", "Android", "Xbox One", "PlayStation 4", "Nintendo Switch"],
+        "player_count": "20 Million+ Active Users",
+        "website": "https://www.roblox.com/",
+        "play": "https://www.roblox.com/games",
+        "engine": "Custom Engine",
+        "cover_path": "assets/images/covers/games/g_0000001.webp",
+        "banner_path": "assets/images/covers/games/g_0000001_banner.webp",
+        "description": "Roblox is an online platform that allows users to create and play games created by other users. It features a wide variety of user-generated games and experiences, ranging from simple obstacle courses to complex simulations. Players can customize their avatars, socialize with others, and participate in virtual events.",
+        "owns": [
+            {
+                "title": "Roblox Studio",
+                "created": "September 1, 2006 - Present",
+                "acquired": "September 1, 2006",
+                "reason": "Roblox Studio is the official game development environment for Roblox"
+            },
+            {
+                "other": ["Bloxlink", "Loom.ai", "Speechly", "PacketZoom", "Imbellus", "Byfron Tech"]
+            }
+        ],
+        "previously_owned": [
+            {
+                "title": "Guilded",
+                "acquired": "August 16, 2021",
+                "shut_down": "Shutdown in December 19, 2025"
+            }
+        ]
+    },
+
+    {
+        "id": "g_0000002",
+        "title": "Bullet Force",
+        "type": "Game",
+        "genre": ["Shooter", "Action", "Multiplayer", "FPS", "Army", "3D"],
+        "created": "October 1, 2016",
+        "release": "October 1, 2016",
+        "creators": ["Lucas Wilde", "Blayze Games"],
+        "company": "Blayze Games",
+        "age": "11+",
+        "age_range": "Teen+",
+        "staff_count": "1 Developer",
+        "platforms": ["PC", "Steam", "iOS", "Android"],
+        "other_games": [
+            {
+                "title": "Forward Assault",
+                "target_id": "g_0000003"
+            },
+            {
+                "title": "Assault Bots",
+                "target_id": "g_0000004"
+            }
+        ],
+        "player_count": "1-2 Thousand Active Players",
+        "website": "https://blayzegames.com/",
+        "play": "https://www.crazygames.com/game/bullet-force-multiplayer",
+        "engine": "Unity",
+        "cover_path": "assets/images/covers/games/g_0000002.webp",
+        "banner_path": "assets/images/covers/games/g_0000002_banner.webp",
+        "description": "Bullet Force is a fast-paced multiplayer first-person shooter game that offers intense combat experiences. Players can engage in various game modes, customize their loadouts, and compete against others in dynamic maps. The game features realistic weapon mechanics, team-based gameplay, and a variety of maps and environments to explore."
+    },
+
+    {
+        "id": "g_0000003",
+        "title": "Forward Assault",
+        "type": "Game",
+        "genre": ["Shooter", "Action", "Multiplayer", "FPS", "Army", "3D", "Party"],
+        "created": null,
+        "release": "Decemeber 2019",
+        "creators": ["Lucas Wilde", "Blayze Games"],
+        "company": "Blayze Games",
+        "age": "8+",
+        "age_range": "Teen+",
+        "staff_count": "1 Developer",
+        "platforms": ["PC", "iOS", "Android"],
+        "other_games": [
+            {
+                "title": "Bullet Force",
+                "target_id": "g_0000002"
+            },
+            {
+                "title": "Assault Bots",
+                "target_id": "g_0000004"
+            }
+        ],
+        "player_count": "700 - 1 Thousand Active Players",
+        "website": "https://blayzegames.com/",
+        "play": "https://www.crazygames.com/game/forward-assault",
+        "engine": "Unity",
+        "cover_path": "assets/images/covers/games/g_0000003.webp",
+        "banner_path": "assets/images/covers/games/g_0000003_banner.webp",
+        "description": "Forward Assault is a fast-paced multiplayer first-person shooter game that offers intense combat experiences. Players can engage in various game modes, customize their loadouts, and compete against others in dynamic maps. The game features realistic weapon mechanics, team-based gameplay, and a variety of maps and environments to explore."    
+    },
+
+    {
+        "id": "g_0000004",
+        "title": "Assault Bots",
+        "type": "Game",
+        "genre": ["Shooter", "Action", "Robots", "Gun", "Car", "3D", "Multiplayer", "Third Person Shooter", "TPS"],
+        "created": null,
+        "release": "September 2020",
+        "creators": ["Lucas Wilde", "Blayze Games"],
+        "company": "Blayze Games",
+        "age": "8+",
+        "age_range": "Teen+",
+        "staff_count": "1 Developer",
+        "platforms": ["PC", "iOS", "Android"],
+        "other_games": [
+            {
+                "title": "Bullet Force",
+                "target_id": "g_0000002"
+            },
+            {
+                "title": "Forward Assault",
+                "target_id": "g_0000003"
+            }
+        ],
+        "player_count": "< 500 Active Players",
+        "website": "https://blayzegames.com/",
+        "play": "https://www.crazygames.com/game/bot-machines",
+        "engine": "Unity",
+        "cover_path": "assets/images/covers/games/g_0000004.webp",
+        "banner_path": "assets/images/covers/games/g_0000004_banner.webp",
+        "description": "Assault Bots is a fast-paced multiplayer third-person shooter game that offers intense combat experiences. Players can engage in various game modes, customize their loadouts, and compete against others in dynamic maps. The game features realistic weapon mechanics, team-based gameplay, and a variety of maps and environments to explore."
+    },
+
+    {
+        "id": "g_0000005",
+        "title": {
+            "name": "Grand Theft Auto",
+            "abbreviation": "GTA"
+        },
+        "type": "Game",
+        "genre": ["Action", "Adventure", "Open World", "Crime", "Driving", "Shooter", "Multiplayer", "Singleplayer", "RPG", "Simulation"],
+        "created": "November 1997",
+        "release": "November 28, 1997",
+        "creators": ["David Jones", "Mike Dailly", "Duncan Jones", "Dan Houser", "Sam Houser", "Leslie Benzies"],
+        "company": "Rockstar Games",
+        "age": "28+",
+        "age_range": "18+",
+        "staff_count": "2,000+ Employees",
+        "platforms": ["PC", "PlayStation", "Xbox"],
+        "player_count": "0 Active Players",
+        "website": "https://www.rockstargames.com/",
+        "play": "https://www.rockstargames.com/games",
+        "engine": "RAGE",
+        "other_series": [
+            {
+                "title": "Grand Theft Auto: VI",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: V",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Online",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: San Andreas",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Vice City",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: III",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Liberty City Stories",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Vice City Stories",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Vice City",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Advance",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: 2",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: Chinatown Wars",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: London 1969",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Grand Theft Auto: London 1961",
+                "target_id": "g_000000?"
+            }
+        ],
+        "other_games": [
+            {
+                "title": "Red Dead Redemption",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Red Dead Redemption 2",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Red Dead Online",
+                "target_id": "g_000000?"
+            },
+            {
+                "title": "Red Dead Revolver",
+                "target_id": "g_000000?"
+            }
+        ],
+        "cover_path": "assets/images/covers/games/g_0000005.webp",
+        "banner_path": "assets/images/covers/games/g_0000005_banner.webp",
+        "description": "Grand Theft Auto (GTA) is a series of action-adventure games that allow players to explore open-world environments, engage in criminal activities, and complete missions. The series is known for its immersive storytelling, diverse gameplay mechanics, and satirical take on modern society. Players can drive vehicles, engage in combat, and interact with various characters in a dynamic world." 
+    }
+]
